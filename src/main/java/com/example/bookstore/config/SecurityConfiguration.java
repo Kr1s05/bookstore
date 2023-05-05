@@ -23,8 +23,9 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/resources/**","/css/**","/js/**","/images/**","/webjars/**").permitAll()
                         .requestMatchers("/", "/home","/register").permitAll()
-                        .requestMatchers("/user").hasRole(Role.USER.toString())
+                        .requestMatchers("/user").hasAuthority(Role.USER.toString())
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
@@ -32,7 +33,6 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .permitAll()
                         .loginProcessingUrl("/perform_login")
-                        .defaultSuccessUrl("/user")
                         .failureUrl("/login?error")
                 )
                 .authenticationProvider(authProvider())
