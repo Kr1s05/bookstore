@@ -1,11 +1,11 @@
-package com.example.bookstore.Controllers;
+package com.example.bookstore.controllers;
 
 import com.example.bookstore.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -17,13 +17,18 @@ public class PageController {
     }
 
     @GetMapping("/register")
-    public String register(@ModelAttribute("user") User user, Model model){
-        model.addAttribute("user",new User());
+    public String register(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("user", new User());
         return "register";
     }
+
     @GetMapping("/login")
-    public String login(@ModelAttribute("user") User user, Model model){
-        model.addAttribute("user",new User());
+    public String login(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("user", new User());
         return "login";
+    }
+    @GetMapping("/user")
+    public String user(){
+        return "user";
     }
 }

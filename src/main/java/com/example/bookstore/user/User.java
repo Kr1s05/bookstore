@@ -1,13 +1,13 @@
 package com.example.bookstore.user;
 
+import com.example.bookstore.security.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class User {
     @Id
     @Column(nullable = false, updatable = false)
@@ -17,10 +17,17 @@ public class User {
     @Column(length = 45, nullable = false)
     private String username;
 
-    @Column(length = 45,nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     @Email(message = "Enter a valid email!")
     private String email;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(nullable = false)
+    private boolean active;
 }
