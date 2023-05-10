@@ -23,7 +23,7 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                        .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/webjars/**","/static/**").permitAll()
                         .requestMatchers("/", "/home", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -33,6 +33,7 @@ public class SecurityConfiguration {
                         .permitAll()
                         .loginProcessingUrl("/perform_login")
                         .failureUrl("/login?error")
+                        .successForwardUrl("/")
                 )
                 .authenticationProvider(authProvider())
                 .logout(LogoutConfigurer::permitAll);

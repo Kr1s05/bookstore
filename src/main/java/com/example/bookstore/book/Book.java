@@ -31,7 +31,10 @@ public class Book {
     private int quantity;
 
     @ManyToMany
-    @JoinTable(name = "book_genre")
+    @JoinTable(name = "book_genre",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+        )
     private Set<Genre> genres;
 
     @ManyToOne
@@ -39,6 +42,9 @@ public class Book {
     private Publisher publisher;
 
     @ManyToMany
-    @JoinTable(name = "book_author")
+    @JoinTable(name = "book_author",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
     private Set<Author> authors;
 }
