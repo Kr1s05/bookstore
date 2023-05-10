@@ -3,10 +3,12 @@ package com.example.bookstore.user;
 import com.example.bookstore.security.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class User {
     @Id
     @Column(nullable = false, updatable = false)

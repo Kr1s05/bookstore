@@ -4,13 +4,15 @@ import com.example.bookstore.author.Author;
 import com.example.bookstore.genre.Genre;
 import com.example.bookstore.publisher.Publisher;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
