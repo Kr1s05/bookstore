@@ -25,7 +25,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
                         .requestMatchers("/", "/home", "/register").permitAll()
-                        .requestMatchers("/user").hasAuthority(Role.USER.toString())
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)

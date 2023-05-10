@@ -11,28 +11,11 @@
         <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
         <script th:src="@{/js/app.js}" defer></script>
     </head>
-    <body hx-boost="true">
+    <body>
         <header class="bg-light">
-            <div class="container">
-                <nav class="navbar navbar-light navbar-expand-md">
-                    <a th:href="@{/}" class="navbar-brand">
-                        <img th:src="@{/images/logo.png}" th:alt="#{app.title}" width="30" height="30" class="d-inline-block align-top">
-                        <span th:text="#{app.title}" class="ps-1" />
-                    </a>
-                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggle"
-                            th:aria-label="#{navigation.toggle}" aria-controls="navbarToggle" aria-expanded="false">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarToggle">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="navbar-item">
-                                <a th:href="@{/}" th:text="#{navigation.home}" class="nav-link" />
-                                <a th:href="@{/register}" class="nav-link">Register</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+            <nav class="navbar navbar-expand-md">
+
+            </nav>
         </header>
         <main class="my-5">
             <div class="container">
