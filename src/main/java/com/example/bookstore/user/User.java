@@ -3,7 +3,6 @@ package com.example.bookstore.user;
 import com.example.bookstore.security.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity

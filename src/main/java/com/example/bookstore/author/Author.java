@@ -2,35 +2,21 @@ package com.example.bookstore.author;
 
 import com.example.bookstore.book.Book;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Set;
 
-
 @Entity
-@Getter
-@Setter
+@Data
 public class Author {
-
     @Id
-    @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(length = 50)
+    private int id;
     private String name;
-
-    @Column
-    private String wikiLink;
-
-    @Column(columnDefinition = "longtext")
+    private String wiki_link;
     private String bio;
-
-    @Column(columnDefinition = "mediumblob")
     private byte[] photo;
 
-    @ManyToMany(mappedBy = "bookAuthorAuthors")
-    private Set<Book> bookAuthorBooks;
-
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
 }

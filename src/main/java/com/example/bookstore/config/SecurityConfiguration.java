@@ -23,8 +23,8 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/resources/**","/css/**","/js/**","/images/**","/webjars/**").permitAll()
-                        .requestMatchers("/", "/home","/register").permitAll()
+                        .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                        .requestMatchers("/", "/home", "/register").permitAll()
                         .requestMatchers("/user").hasAuthority(Role.USER.toString())
                         .anyRequest().authenticated()
                 )
@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
     @Bean
     public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -47,6 +48,7 @@ public class SecurityConfiguration {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
