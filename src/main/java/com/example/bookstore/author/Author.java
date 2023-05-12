@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Base64;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,11 @@ public class Author {
     private String name;
     private String wiki_link;
     private String bio;
+
     private byte[] photo;
+    public String getPhotoAsBase64(){
+        return Base64.getEncoder().encodeToString(photo);
+    }
 
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;

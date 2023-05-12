@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
@@ -21,7 +22,12 @@ public class Book {
     private String title;
     private int pages;
     private Date publish_date;
+
     private byte[] cover;
+    public String getCoverAsBase64(){
+        return Base64.getEncoder().encodeToString(cover);
+    }
+
     private String description;
 
     @Column(columnDefinition = "decimal")

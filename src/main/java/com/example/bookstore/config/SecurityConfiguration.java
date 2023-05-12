@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                         .permitAll()
                         .loginProcessingUrl("/perform_login")
                         .failureUrl("/login?error")
-                        .successForwardUrl("/")
+                        .defaultSuccessUrl("/",true)
                 )
                 .authenticationProvider(authProvider())
                 .logout(LogoutConfigurer::permitAll);
