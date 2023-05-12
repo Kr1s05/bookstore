@@ -24,8 +24,11 @@
 }
 @font-face {
     font-family: brandFont;
-    src: url(Inknut\ Antiqua\ Regular.ttf);
+    src: url(/fonts/font.ttf);
 }
 body{
     font-family: brandFont;
+}
+.caret-hidden{
+    caret-color: transparent;
 }
