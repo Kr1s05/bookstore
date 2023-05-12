@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100px"
+   height="100px"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="logo-white.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2238"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="4.2835116"
+     inkscape:cx="3.7352531"
+     inkscape:cy="23.695512"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="SVGRoot" />
+  <defs
+     id="defs2233" />
+  <g
+     fill="#ffffff"
+     data-fill-palette-color="accent"
+     id="g957"
+     inkscape:label="hexagons_icon"
+     transform="matrix(1.1144048,0,0,1.1154459,-5.624401,-6.3231839)">
+    <path
+       d="M 94.281,17.854 73.418,5.803 c -0.309,-0.179 -0.691,-0.179 -1,0 l -20.869,12.05 c -0.311,0.179 -0.5,0.509 -0.5,0.866 v 24.096 c 0,0.357 0.189,0.688 0.5,0.866 L 72.418,55.73 c 0.154,0.09 0.326,0.135 0.5,0.135 0.172,0 0.346,-0.045 0.5,-0.135 L 94.281,43.68 c 0.309,-0.178 0.5,-0.508 0.5,-0.866 V 18.719 c 0,-0.357 -0.191,-0.687 -0.5,-0.865 z M 92.781,42.238 72.918,53.71 53.049,42.238 V 19.296 L 72.918,7.823 92.781,19.296 Z M 48.777,42.815 V 18.719 c 0,-0.357 -0.189,-0.688 -0.5,-0.866 L 27.414,5.803 c -0.311,-0.179 -0.691,-0.178 -1,0 L 5.547,17.853 c -0.311,0.179 -0.5,0.509 -0.5,0.866 v 24.096 c 0,0.357 0.189,0.688 0.5,0.866 L 26.414,55.73 c 0.154,0.09 0.326,0.135 0.5,0.135 0.172,0 0.346,-0.045 0.5,-0.135 L 48.277,43.68 c 0.311,-0.178 0.5,-0.508 0.5,-0.865 z m -2,-5.587 L 22.35,51.075 18.588,48.903 46.777,32.986 Z m 0,-5.103 L 17.834,48.467 14.121,46.323 46.777,27.786 Z M 13.367,45.888 9.601,43.713 46.777,22.497 v 4.427 z M 7.047,28.786 V 24.407 L 31.563,10.51 35.331,12.686 Z M 36.082,13.119 39.965,15.362 7.047,33.838 V 29.649 Z M 7.047,34.699 40.721,15.798 44.354,17.897 7.047,39.013 Z M 26.914,7.823 30.81,10.073 7.047,23.544 V 19.296 Z M 7.047,39.874 45.108,18.332 l 1.67,0.965 v 2.336 L 8.85,43.279 7.047,42.238 Z M 26.914,53.71 23.103,51.51 46.777,38.09 v 4.148 z M 71.203,57.307 50.346,45.259 c -0.309,-0.179 -0.689,-0.179 -1,0 L 28.477,57.307 c -0.309,0.18 -0.5,0.51 -0.5,0.867 V 82.27 c 0,0.357 0.191,0.688 0.5,0.865 l 20.869,12.049 c 0.154,0.09 0.328,0.135 0.5,0.135 0.174,0 0.346,-0.045 0.5,-0.135 L 71.203,83.135 c 0.311,-0.178 0.5,-0.508 0.5,-0.865 V 58.174 c 0,-0.358 -0.189,-0.688 -0.5,-0.867 z M 69.703,81.691 49.846,93.164 29.977,81.691 V 58.75 L 49.846,47.28 69.703,58.75 Z M 27.732,54.865"
+       fill="#ffffff"
+       data-fill-palette-color="accent"
+       id="path955" />
+  </g>
+</svg>

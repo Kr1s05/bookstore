@@ -1,0 +1,31 @@
+.color-brand-primary{
+    color:#E04357;
+}
+.color-brand-secondary{
+    color: #DCDCDC;
+}
+.color-brand-accent{
+    color: #FFFF;
+}
+.color-brand-dark{
+    color:#282634;
+}
+.bg-brand-primary{
+    background-color:#E04357;
+}
+.bg-brand-secondary{
+    background-color: #DCDCDC;
+}
+.bg-brand-accent{
+    background-color: #FFFF;
+}
+.bg-brand-dark{
+    background-color:#282634;
+}
+@font-face {
+    font-family: brandFont;
+    src: url(Inknut\ Antiqua\ Regular.ttf);
+}
+body{
+    font-family: brandFont;
+}
