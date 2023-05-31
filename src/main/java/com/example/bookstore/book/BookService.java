@@ -9,15 +9,29 @@ import java.util.List;
 public class BookService {
     final
     BookRepository bookRepository;
-    public List<Book> getBooksByAuthorsAndPrice(String authors,double minPrice, double maxPrice){
-        String[] authorArray = authors.split(",");
-        StringBuilder builder = new StringBuilder();
-        for (String s : authorArray) {
-            builder.append("'");
-            builder.append(s);
-            builder.append("',");
+    public List<Book> getBooksByFilters(FilterObject filterObject){
+       StringBuilder authorStringBuilder = new StringBuilder();
+        for (String author:
+                filterObject.authors) {
+            authorStringBuilder.append("\'");
+            authorStringBuilder.append(author);
+            authorStringBuilder.append("\'");
         }
-        String authorList = builder.toString();
-        return bookRepository.filterBooksByAuthorPrice(authorList,minPrice,maxPrice);
+        String authorString = authorStringBuilder.toString();
+        StringBuilder genreStringBuilder = new StringBuilder();
+        for (String genre:
+                filterObject.genres) {
+            genreStringBuilder.append("\'");
+            genreStringBuilder.append(genre);
+            genreStringBuilder.append("\'");
+        }
+        String genreString = authorStringBuilder.toString();
+        return bookRepository.filterBooks(authorString, genreString, filterObject.minPrice, filterObject.maxPrice);
+    }
+    public double maxPrice(){
+        return bookRepository.getMaxPrice();
+    }
+    public double minPrice(){
+        return bookRepository.getMinPrice();
     }
 }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{app.title}"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/app.css}" rel="stylesheet" />
+    <link th:href="@{/css/brand_style.css}" rel="stylesheet" />
+    <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
+    <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
+    <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body class="bg-brand-dark h-100">
+    <nav class="navbar bg-brand-dark-transp">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img th:src="@{/images/logo-white.svg}" alt="" width="50px"></a>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link color-brand-accent" href="/" >Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-brand-accent" href="/contact">Contact us</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn nav-link color-brand-accent" data-bs-toggle="collapse" data-bs-target="#Filters"
+                            aria-controls="Filters" aria-expanded="false" aria-label="Toggle filters">Filters</button>
+                </li>
+            </ul>
+            <ul class="ms-auto"></ul>
+            <div >
+                <button class="btn nav-link color-brand-accent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    Account
+                </button>
+                <div class="collapse position-absolute top-100 end-0" id="navbarNav">
+                    <ul class="btn-group-vertical bg-brand-dark-transp nav">
+                        <li nav-item><a class="btn nav-link color-brand-accent" href="">Profile</a></li>
+                        <li nav-item><a class="btn nav-link color-brand-accent" href="">Cart</a></li>
+                        <li nav-item><form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
+                        </form></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="collapse bg-brand-dark-transp" id="Filters">
+        <div class="d-flex row px-5 py-3 justify-content-between">
+            <div class="accordion col-md-4 col-xl-3 mb-3" id="filterAccordion">
+                <!-- author item -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="authorHeading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#authorCollapse"
+                                aria-expanded="false" aria-controls="authorCollapse">
+                            Authors
+                        </button>
+                    </h2>
+                    <div id="authorCollapse" class="accordion-collapse collapse" aria-labelledby="authorHeading"
+                         data-bs-parent="#filterAccordion">
+                        <div class="accordion-body">
+                            <div class="form-check" th:each="author : ${Authors}">
+                                <input class="form-check-input" type="checkbox" th:value="${author.name}" th:id="${author.name}+'Check'">
+                                <label class="form-check-label" th:for="${author.name}+'Check'" th:text="${author.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- genre item -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="genreHeading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#genreCollapse"
+                                aria-expanded="true" aria-controls="genreCollapse">
+                            Genre
+                        </button>
+                    </h2>
+                    <div id="genreCollapse" class="accordion-collapse collapse" aria-labelledby="genreHeading"
+                         data-bs-parent="#filterAccordion">
+                        <div class="accordion-body">
+                            <div class="form-check" th:each="genre : ${Genres}">
+                                <input class="form-check-input" type="checkbox" th:value="${genre.name}" th:id="${genre.name}+'GenreCheck'">
+                                <label class="form-check-label" th:for="${genre.name}+'GenreCheck'" th:text="${genre.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- price item -->
+            <div class="col col-md-4 col-xl-3 align-self-start">
+                <div class="input-group">
+                    <span class="input-group-text">Price:</span>
+                    <input type="number" class="form-control" th:value="${MinPrice}">
+                    <input type="number" class="form-control" th:value="${MaxPrice}">
+                </div>
+                <button class="btn bg-brand-accent mt-4 float-end" id="applyFilters">Apply</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#applyFilters").onclick(function () {
+            let authors = [];
+            $('[id$="Check"]:checked').each(function() {
+                let author = $(this).val();
+                authors.push(author);
+            });
+
+            // Collect selected genres
+            let genres = [];
+            $('[id$="GenreCheck"]:checked').each(function() {
+                let genre = $(this).val();
+                genres.push(genre);
+            });
+
+            // Get min and max price values
+            let minPrice = $('#minPrice').val();
+            let maxPrice = $('#maxPrice').val();
+
+            $.post("/books",
+                {
+                    authors: authors,
+                    genres: genres,
+                    minPrice: minPrice,
+                    maxPrice: maxPrice
+                },
+                function (data, status) {
+                    $("#contentBox").html(data);
+                })
+        })
+    </script>
+
+<main class="my-5">
+    <div class="container" id="contentBox">
+
+    </div>
+</main>
+</body>
+</html>
