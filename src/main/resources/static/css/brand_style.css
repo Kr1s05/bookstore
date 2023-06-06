@@ -44,7 +44,7 @@
 }
 
 body {
-    font-family: brandFont;
+    font-family: brandFont, sans-serif;
     box-sizing: border-box;
 }
 
@@ -83,4 +83,28 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.bg-img-dark{
+    background-image: url('/images/bg-dark-main.jpg');
+    /* backdrop-filter: blur(3px); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-img-light{
+    background-image: url('/images/bg-light-main.jpg');
+    /* backdrop-filter: blur(3px); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-img-login{
+    background-image: url('/images/bg-login-register.jpg');
+    /* backdrop-filter: blur(3px); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }

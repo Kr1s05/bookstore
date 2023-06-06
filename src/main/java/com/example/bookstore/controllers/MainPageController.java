@@ -2,6 +2,7 @@ package com.example.bookstore.controllers;
 
 import com.example.bookstore.author.AuthorService;
 import com.example.bookstore.book.BookService;
+import com.example.bookstore.book.FilterBookResult;
 import com.example.bookstore.book.FilterObject;
 import com.example.bookstore.genre.GenreService;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,10 @@ public class MainPageController {
     }
     @PostMapping("/books")
     public String books(@RequestBody FilterObject filters, Model model){
-        model.addAttribute("authorList", bookService.getBooksByFilters(filters));
-        return "books";
+        FilterBookResult result = bookService.getBooksByFilters(filters);
+        model.addAttribute("bookList", result.getBooks());
+        model.addAttribute("pageNumber", filters.getPageNumber());
+        model.addAttribute("pageCount", result.getPageCount());
+        return "/books";
     }
 }

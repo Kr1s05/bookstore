@@ -5,14 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet" />
     <link th:href="@{/css/app.css}" rel="stylesheet" />
     <link th:href="@{/css/brand_style.css}" rel="stylesheet" />
     <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
     <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
+    <script type="text/javascript" th:src="@{/webjars/jQuery/dist/jquery.js}"></script>
     <script th:src="@{/js/app.js}" defer></script>
 </head>
-<body class="bg-brand-dark h-100">
+<body class="bg-img-dark h-100">
     <nav class="navbar bg-brand-dark-transp">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img th:src="@{/images/logo-white.svg}" alt="" width="50px"></a>
@@ -45,7 +49,7 @@
             </div>
         </div>
     </nav>
-    <div class="collapse bg-brand-dark-transp" id="Filters">
+    <div class="collapse bg-brand-dark-transp container-fluid" id="Filters">
         <div class="d-flex row px-5 py-3 justify-content-between">
             <div class="accordion col-md-4 col-xl-3 mb-3" id="filterAccordion">
                 <!-- author item -->
@@ -60,8 +64,8 @@
                          data-bs-parent="#filterAccordion">
                         <div class="accordion-body">
                             <div class="form-check" th:each="author : ${Authors}">
-                                <input class="form-check-input" type="checkbox" th:value="${author.name}" th:id="${author.name}+'Check'">
-                                <label class="form-check-label" th:for="${author.name}+'Check'" th:text="${author.name}"></label>
+                                <input class="form-check-input" type="checkbox" th:value="${author.name}" th:id="${author.name}+'Author'">
+                                <label class="form-check-label" th:for="${author.name}" th:text="${author.name}"></label>
                             </div>
                         </div>
                     </div>
@@ -79,8 +83,8 @@
                          data-bs-parent="#filterAccordion">
                         <div class="accordion-body">
                             <div class="form-check" th:each="genre : ${Genres}">
-                                <input class="form-check-input" type="checkbox" th:value="${genre.name}" th:id="${genre.name}+'GenreCheck'">
-                                <label class="form-check-label" th:for="${genre.name}+'GenreCheck'" th:text="${genre.name}"></label>
+                                <input class="form-check-input" type="checkbox" th:value="${genre.name}" th:id="${genre.name}+'Genre'">
+                                <label  class="form-check-label" th:for="${genre.name}+'Genre'" th:text="${genre.name}"></label>
                             </div>
                         </div>
                     </div>
@@ -90,43 +94,78 @@
             <div class="col col-md-4 col-xl-3 align-self-start">
                 <div class="input-group">
                     <span class="input-group-text">Price:</span>
-                    <input type="number" class="form-control" th:value="${MinPrice}">
-                    <input type="number" class="form-control" th:value="${MaxPrice}">
+                    <input type="number" class="form-control" th:value="${MinPrice}" id="MinPrice">
+                    <input type="number" class="form-control" th:value="${MaxPrice}" id="MaxPrice">
                 </div>
                 <button class="btn bg-brand-accent mt-4 float-end" id="applyFilters">Apply</button>
             </div>
         </div>
     </div>
     <script>
-        $("#applyFilters").onclick(function () {
+        $("#applyFilters").click(function () {
             let authors = [];
-            $('[id$="Check"]:checked').each(function() {
+            $('[id$="Author"]:checked').each(function() {
                 let author = $(this).val();
                 authors.push(author);
             });
 
             // Collect selected genres
             let genres = [];
-            $('[id$="GenreCheck"]:checked').each(function() {
+            $('[id$="Genre"]:checked').each(function() {
                 let genre = $(this).val();
                 genres.push(genre);
             });
 
             // Get min and max price values
-            let minPrice = $('#minPrice').val();
-            let maxPrice = $('#maxPrice').val();
+            const minPrice = $('#MinPrice').val();
+            const maxPrice = $('#MaxPrice').val();
 
-            $.post("/books",
-                {
+            const ulElement = document.getElementById('pages');
+            let activeId = '1';
+            if (ulElement) {
+                const activeElement = ulElement.querySelector('.active');
+                if (activeElement) {
+                    activeId = activeElement.id;
+                }
+            }
+            let pageNumber = parseInt(activeId);
+
+            const token = $("meta[name='_csrf']").attr("content");
+            const header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+            console.log('sending request...');
+            console.log(JSON.stringify({
+                authors: authors,
+                genres: genres,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                pageNumber: pageNumber,
+                pageSize: 16
+            }));
+            $.ajax({
+                url: "/books",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
                     authors: authors,
                     genres: genres,
                     minPrice: minPrice,
-                    maxPrice: maxPrice
-                },
-                function (data, status) {
+                    maxPrice: maxPrice,
+                    pageNumber: pageNumber,
+                    pageSize: 16
+                }),
+                success: function(data) {
+                    console.log("Request successful");
                     $("#contentBox").html(data);
-                })
-        })
+                    console.log(data);
+                },
+                error: function(xhr, status, error) {
+                    console.log("Request failed: " + error);
+                }
+            });
+        });
     </script>
 
 <main class="my-5">

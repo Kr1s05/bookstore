@@ -8,4 +8,6 @@ public class FilterObject {
     String[] genres;
     double minPrice;
     double maxPrice;
+    int pageNumber;
+    int pageSize;
 }
