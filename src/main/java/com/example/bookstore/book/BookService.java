@@ -52,6 +52,9 @@ public class BookService {
         System.out.println(totalCount);
         return new FilterBookResult(BookDTO.bulkConvert(books), totalCount);
     }
+    public Book getBookById(int id){
+        return bookRepository.getBookById(id);
+    }
 
     public double maxPrice() {
         return bookRepository.getMaxPrice();

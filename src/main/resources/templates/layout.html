@@ -19,7 +19,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#"><img th:src="@{/images/logo-white.svg}" alt="" width="50px"></a>
                     <ul class="nav justify-content-center  ">
-                        <li class="nav-item">
+                        <li class="nav-item ">
                             <a class="nav-link color-brand-accent" href="/" >Home</a>
                         </li>
                         <li class="nav-item">
@@ -27,7 +27,7 @@
                         </li>
                     </ul>
                     <ul class="ms-auto"></ul>
-                    <div sec:authorize="!isAuthenticated()">
+                    <div>
                     <ul class="nav">
                         <li class="nav-item">
                             <a href="/login" class="nav-link color-brand-accent pe-1">Login</a>
@@ -36,20 +36,6 @@
                             <a href="/register" class="nav-link color-brand-accent ps-1">Register</a>
                         </li>
                     </ul>
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <button class="btn nav-link color-brand-accent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            Account
-                        </button>
-                        <div class="collapse position-absolute top-100 end-0" id="navbarNav">
-                            <ul class="btn-group-vertical bg-brand-dark-transp nav ">
-                                <li nav-item><a class="btn nav-link color-brand-accent" href="">Profile</a></li>
-                                <li nav-item><a class="btn nav-link color-brand-accent" href="">Cart</a></li>
-                                <li nav-item><form th:action="@{/logout}" method="post">
-                                    <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
-                                </form></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </nav>

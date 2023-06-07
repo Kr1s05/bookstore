@@ -29,4 +29,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     @Query(value = "select MIN(b.price) from Book b")
     double getMinPrice();
+
+    Book getBookById(int id);
 }
