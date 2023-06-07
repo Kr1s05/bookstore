@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -43,10 +42,18 @@ public class MainPageController {
     }
 
     @ResponseBody
-    @GetMapping("/buy/{bookId}")
-    public Cart cartItem(@PathVariable int bookId, @SessionAttribute Cart cart){
-        BookDTO book = BookDTO.convert(bookService.getBookById(bookId));
-        cart.addToCart(CartItem.BookToCartItem(book));
+    @GetMapping("/cart/add/{bookId}")
+    public Cart buyBook(@PathVariable int bookId, @SessionAttribute Cart cart){
+        CartItem cartItem = CartItem.BookToCartItem(bookService.getBookById(bookId));
+        cart.addToCart(cartItem);
+        return cart;
+    }
+
+    @ResponseBody
+    @GetMapping("/cart/remove/{bookId}")
+    public Cart trashBook(@PathVariable int bookId, @SessionAttribute Cart cart){
+        CartItem cartItem = CartItem.BookToCartItem(bookService.getBookById(bookId));
+        cart.removeFromCart(cartItem);
         return cart;
     }
 }
