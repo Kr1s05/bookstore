@@ -25,7 +25,7 @@ public class MainPageController {
 
     @GetMapping("/store")
     public String mainPage(Model model, HttpSession session){
-        session.setAttribute("cart", new Cart(new HashMap<>()));
+        if (session.getAttribute("cart") == null) session.setAttribute("cart", new Cart(new HashMap<>()));
         model.addAttribute("Authors",authorService.getAll());
         model.addAttribute("Genres",genreService.getAll());
         model.addAttribute("MaxPrice",bookService.maxPrice());

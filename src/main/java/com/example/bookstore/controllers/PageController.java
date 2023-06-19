@@ -1,5 +1,6 @@
 package com.example.bookstore.controllers;
 
+import com.example.bookstore.contactMessage.Message;
 import com.example.bookstore.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,5 +26,10 @@ public class PageController {
     public String login(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("user", new User());
         return "login";
+    }
+    @GetMapping("/contact")
+    public String contact(Model model){
+        model.addAttribute("Message", new Message());
+        return "contactForm";
     }
 }
