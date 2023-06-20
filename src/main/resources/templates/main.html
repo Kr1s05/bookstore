@@ -14,7 +14,6 @@
     <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
     <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
     <script type="text/javascript" th:src="@{/webjars/jQuery/dist/jquery.js}" defer></script>
-    <script th:src="@{/js/app.js}" defer></script>
 </head>
 <body class="bg-img-dark h-100">
     <nav class="navbar bg-brand-dark-transp">
@@ -39,8 +38,8 @@
                 </button>
                 <div class="collapse position-absolute top-100 end-0" id="navbarNav">
                     <ul class="btn-group-vertical bg-brand-dark-transp nav">
-                        <li nav-item><a class="btn nav-link color-brand-accent" href="">Profile</a></li>
-                        <li nav-item><a class="btn nav-link color-brand-accent" href="">Cart <i class="fa-light fa-cart-shopping"></i></a></li>
+                        <li nav-item><a class="btn nav-link color-brand-accent">Profile</a></li>
+                        <li nav-item><a class="btn nav-link color-brand-accent">Cart <i class="fa-light fa-cart-shopping"></i></a></li>
                         <li nav-item><form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
                         </form></li>
