@@ -52,7 +52,8 @@ public class BookService {
         System.out.println(totalCount);
         return new FilterBookResult(BookDTO.bulkConvert(books), totalCount);
     }
-    public Book getBookById(int id){
+
+    public Book getBookById(int id) {
         return bookRepository.getBookById(id);
     }
 
@@ -62,5 +63,17 @@ public class BookService {
 
     public double minPrice() {
         return bookRepository.getMinPrice();
+    }
+
+    public List<Book> getAll() {
+        return bookRepository.findAll();
+    }
+
+    public void save(Book book) {
+        bookRepository.save(book);
+    }
+
+    public void updateQuantityById(int bookId, int availableQuantity) {
+        bookRepository.updateQuantityById(bookId, availableQuantity);
     }
 }

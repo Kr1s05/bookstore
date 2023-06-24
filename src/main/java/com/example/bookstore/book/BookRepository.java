@@ -3,6 +3,7 @@ package com.example.bookstore.book;
 import groovyjarjarantlr4.v4.misc.MutableInt;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
@@ -31,4 +32,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     double getMinPrice();
 
     Book getBookById(int id);
+    @Modifying
+    @Transactional
+    @Query(value = "update Book b set b.quantity = :quantity where b.id = :bookId")
+    void updateQuantityById(int bookId, int quantity);
 }

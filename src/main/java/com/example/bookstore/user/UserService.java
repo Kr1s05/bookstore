@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -26,4 +28,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public List<User> getAdmins(){
+        return userRepository.findAllByRole(Role.ADMIN);
+    }
+
+    public void setAdmin(String username) {
+        userRepository.setRoleByUsername(username, Role.ADMIN);
+    }
 }
