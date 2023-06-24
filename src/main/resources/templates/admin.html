@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/app.css}" rel="stylesheet"/>
+    <link th:href="@{/css/brand_style.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
+</head>
+
+<body>
+<div class="container-fluid p-4">
+    <h2 class="text-center">Content management</h2>
+    <div class="row rounded border border-dark my-3 p-3 justify-content-evenly">
+        <!--add a book-->
+        <div class="col-md-12 col-lg-6 col-xl-7">
+            <div class="container-fluid rounded border p-4">
+                <h3 class="m-3">Add book</h3>
+
+                <!--author selector-->
+                <div class="row rounded border my-2 p-2">
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label for="authorSelect" class="form-label">Authors:</label>
+                        <div class="input-group">
+                            <select class="form-select" id="authorSelect">
+                                <option value="">Select Author</option>
+                                <option th:each="author : ${Authors}" th:value="${author.getId()}"
+                                        th:text="${author.getName()}"></option>
+                            </select>
+
+                            <button type="button" class="btn btn-outline-secondary" id="addAuthorBtn">Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label for="selectedAuthorsList" class="form-label">Selected Authors:</label>
+                        <ul id="selectedAuthorsList" class="list-group border rounded h-50">
+                            <!-- Selected authors will be added dynamically here -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!--genre selector-->
+                <div class="row rounded border my-2 p-2">
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label for="genreSelect" class="form-label">Genres:</label>
+                        <div class="input-group">
+                            <select class="form-select" id="genreSelect">
+                                <option value="">Select Genre</option>
+                                <option th:each="genre : ${Genres}" th:value="${genre.getId()}"
+                                        th:text="${genre.getName()}"></option>
+                            </select>
+
+                            <button type="button" class="btn btn-outline-secondary" id="addGenreBtn">Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label for="selectedAuthorsList" class="form-label">Selected Genres:</label>
+                        <ul id="selectedGenreList" class="list-group border rounded h-50">
+                            <!-- Selected genres will be added dynamically here -->
+                        </ul>
+                    </div>
+                </div>
+
+
+                <form action="/admin/add-book" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN:</label>
+                        <input type="text" class="form-control" id="isbn" name="isbn" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="publisherId" class="form-label">Publisher:</label>
+                            <select class="form-select" id="publisherId" name="publisher" required>
+                                <option value="">Select Publisher</option>
+                                <option th:each="publisher : ${Publishers}" th:value="${publisher.getId()}"
+                                        th:text="${publisher.getName()}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <label for="publishDate" class="form-label">Publish Date:</label>
+                            <input type="date" class="form-control" id="publishDate" name="publishDate" required>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="author_ids" id="author_ids" value="">
+                    <input type="hidden" name="genre_ids" id="genre_ids" value="">
+
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="4"
+                                  required></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 mb-3">
+                            <label for="pageCount" class="form-label">Page Count:</label>
+                            <input type="number" class="form-control" id="pageCount" name="pageCount" min="0"
+                                   step="1" required>
+                        </div>
+
+                        <div class="col-4 mb-3">
+                            <label for="price" class="form-label">Price:</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+
+                        <div class="col-4 mb-3">
+                            <label for="availableCount" class="form-label">Available Count:</label>
+                            <input type="number" class="form-control" id="availableCount" name="availableCount"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <label for="coverImage" class="form-label">Cover Image:</label>
+                        <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*"
+                               required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </form>
+
+
+                <script>
+                    document.getElementById("addAuthorBtn").addEventListener("click", function () {
+                        const authorSelect = document.getElementById("authorSelect");
+                        const selectedAuthor = authorSelect.options[authorSelect.selectedIndex].text;
+                        const selectedAuthorValue = authorSelect.options[authorSelect.selectedIndex].value;
+                        const hiddenInput = document.getElementById("author_ids");
+
+                        if (selectedAuthorValue !== "") {
+                            const selectedAuthorsList = document.getElementById("selectedAuthorsList");
+                            const authorExists = Array.from(selectedAuthorsList.getElementsByTagName("li")).some(function (li) {
+                                return li.textContent.trim().replace(/\sx$/, "") === selectedAuthor;
+                            });
+
+                            if (!authorExists) {
+                                const listItem = document.createElement("li");
+                                listItem.className = "list-group-item";
+                                listItem.setAttribute("auth_id", selectedAuthorValue);
+                                listItem.innerHTML = selectedAuthor + ' <button type="button" class="btn btn-sm btn-danger removeAuthorBtn">x</button>';
+                                selectedAuthorsList.appendChild(listItem);
+                                hiddenInput.value += "," + selectedAuthorValue + ","
+
+                                // Clear the selection
+                                authorSelect.selectedIndex = 0;
+
+                                // Add event listener to the remove button
+                                listItem.getElementsByClassName("removeAuthorBtn")[0].addEventListener("click", function () {
+                                    const val = hiddenInput.value;
+                                    const regex = new RegExp(`,${listItem.getAttribute("auth_id")},`);
+                                    hiddenInput.value = val.replace(regex, "");
+
+                                    listItem.remove();
+                                });
+                            } else {
+                                alert("The author has already been added.");
+                            }
+                        }
+                    });
+
+                    document.getElementById("addGenreBtn").addEventListener("click", function () {
+                        const genreSelect = document.getElementById("genreSelect");
+                        const selectedGenre = genreSelect.options[genreSelect.selectedIndex].text;
+                        const selectedGenreValue = genreSelect.options[genreSelect.selectedIndex].value;
+                        const hiddenInput = document.getElementById("genre_ids");
+
+                        if (selectedGenreValue !== "") {
+                            const selectedGenreList = document.getElementById("selectedGenreList");
+                            const genreExists = Array.from(selectedGenreList.getElementsByTagName("li")).some(function (li) {
+                                return li.textContent.trim().replace(/\sx$/, "") === selectedGenre;
+                            });
+
+                            if (!genreExists) {
+                                const listItem = document.createElement("li");
+                                listItem.className = "list-group-item";
+                                listItem.setAttribute("genre_id", selectedGenreValue);
+                                listItem.innerHTML = selectedGenre + ' <button type="button" class="btn btn-sm btn-danger removeGenreBtn">x</button>';
+                                selectedGenreList.appendChild(listItem);
+                                hiddenInput.value += "," + selectedGenreValue + ",";
+
+                                // Clear the selection
+                                genreSelect.selectedIndex = 0;
+
+                                // Add event listener to the remove button
+                                listItem.getElementsByClassName("removeGenreBtn")[0].addEventListener("click", function () {
+                                    const val = hiddenInput.value;
+                                    const regex = new RegExp(`,${listItem.getAttribute("genre_id")},`);
+                                    hiddenInput.value = val.replace(regex, "");
+
+                                    listItem.remove();
+                                });
+                            } else {
+                                alert("The genre has already been added.");
+                            }
+                        }
+                    });
+
+                </script>
+            </div>
+        </div>
+        <!-- Manage quantities, add author or publisher -->
+        <div class="col-md-12 col-lg-6 col-xl-5">
+            <!-- Manage book quantities -->
+            <div class="container-fluid rounded border p-4 my-3">
+                <h3>Book quantities</h3>
+                <form action="/admin/set-quantity" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="row">
+                        <div class="col-8 mb-3">
+                            <label for="bookSelect" class="form-label">Select Book:</label>
+                            <select class="form-select" id="bookSelect" name="bookId" required>
+                                <option value="">Select a book</option>
+                                <option th:each="book: ${Books}" th:text="${book.getTitle()}"
+                                        th:value="${book.getId()}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="availableQuantity" class="form-label">Available Quantity:</label>
+                            <input type="number" class="form-control" id="availableQuantity"
+                                   name="availableQuantity" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Quantity</button>
+                </form>
+            </div>
+
+            <!-- Add an author -->
+            <div class="container-fluid rounded border p-4 my-3">
+                <h3>Add New Author</h3>
+                <form action="/admin/add-author" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="mb-3">
+                        <label for="authorName" class="form-label">Author Name:</label>
+                        <input type="text" class="form-control" id="authorName" name="authorName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="authorPhoto" class="form-label">Author Photo:</label>
+                        <input type="file" class="form-control" id="authorPhoto" name="authorPhoto" accept="image/*"
+                               required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Author</button>
+                </form>
+            </div>
+
+            <!-- Add a publisher -->
+            <div class="container-fluid rounded border p-4 my-3">
+                <h3>Add New Publisher</h3>
+                <form action="/admin/add-publisher" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="mb-3">
+                        <label for="publisherName" class="form-label">Publisher Name:</label>
+                        <input type="text" class="form-control" id="publisherName" name="publisherName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Publisher</button>
+                </form>
+            </div>
+
+            <!-- Add a genre -->
+            <div class="container-fluid rounded border p-4 my-3">
+                <h3>Add New Genre</h3>
+                <form action="/admin/add-genre" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="mb-3">
+                        <label for="genreName" class="form-label">Genre Name:</label>
+                        <input type="text" class="form-control" id="genreName" name="genreName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Genre</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <h2 class="text-center mt-5">Admin management</h2>
+    <div class="row rounded border border-dark my-3 p-3 justify-content-evenly">
+
+        <!-- Add new admin -->
+        <div class="col-xs-12 col-md-6 rounded border p-3 my-3">
+            <h3>Add Admin</h3>
+            <form id="adminForm">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="adminName" placeholder="Admin Name">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Admin</button>
+            </form>
+        </div>
+
+        <!-- Display existing admins -->
+        <div class="col-xs-12 col-md-5 rounded border p-3 my-3">
+            <h3>Existing Admins</h3>
+            <ul id="adminList" class="list-group">
+                <li th:each="admin: ${Admins}"
+                    th:text="${admin.getUsername()}, ${admin.getEmail()}"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
