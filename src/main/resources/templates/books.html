@@ -1,14 +1,15 @@
 <div class="row">
-    <div  th:each="bookdto : ${bookList}" class="card p-3 shadow bg-brand-dark-transp" th:style="'width: 18rem;'">
-        <a th:href="${bookdto.id}">
+    <div th:each="bookdto : ${bookList}" class="card p-3 m-3 shadow bg-brand-dark-transp" th:style="'width: 18rem;'">
+        <a th:href="@{'/cart/add/' + ${bookdto.id}}">
             <img class="card-img-top rounded bg-light" alt="Book Cover"
                  th:src="'data:image/jpeg;base64,' + ${bookdto.cover64}" src="">
         </a>
         <div class="card-body d-flex">
             <div class="row">
-                <h5 class="card-title color-brand-accent" th:text="${bookdto.title}">Book Title</h5>
+                <h5 class="card-title text-white" th:text="${bookdto.title}">Book Title</h5>
+                <hr class="text-white">
                 <div th:each="author: ${bookdto.authors}">
-                    <p class="card-subtitle color-brand-accent" th:text="${author.name}">Author</p>
+                    <p class="card-subtitle text-white" th:text="${author.name}">Author</p>
                 </div>
             </div>
             <p class="card-text color-brand-primary text-right align-self-auto" th:text="${bookdto.price}">$9.99</p>

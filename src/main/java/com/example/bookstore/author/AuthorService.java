@@ -11,7 +11,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class AuthorService {
     final AuthorRepository authorRepository;
-    public List<Author> getAll(){
+
+    public List<Author> getAll() {
         return authorRepository.findAll();
     }
 

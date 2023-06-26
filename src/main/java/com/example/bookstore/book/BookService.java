@@ -49,7 +49,6 @@ public class BookService {
                 filterObject.pageSize,
                 totalCount);
 
-        System.out.println(totalCount);
         return new FilterBookResult(BookDTO.bulkConvert(books), totalCount);
     }
 

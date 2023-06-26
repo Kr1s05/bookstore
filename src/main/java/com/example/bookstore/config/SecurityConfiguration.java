@@ -23,7 +23,7 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/webjars/**","/static/**","/fonts/**").permitAll()
+                        .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/webjars/**", "/static/**", "/fonts/**").permitAll()
                         .requestMatchers("/", "/home", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                         .permitAll()
                         .loginProcessingUrl("/perform_login")
                         .failureUrl("/login?error")
-                        .defaultSuccessUrl("/",true)
+                        .defaultSuccessUrl("/", true)
                 )
                 .authenticationProvider(authProvider())
                 .logout(LogoutConfigurer::permitAll);

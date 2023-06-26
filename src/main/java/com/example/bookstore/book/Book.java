@@ -24,7 +24,8 @@ public class Book {
     private Date publish_date;
 
     private byte[] cover;
-    public String getCoverAsBase64(){
+
+    public String getCoverAsBase64() {
         return Base64.getEncoder().encodeToString(cover);
     }
 
@@ -40,7 +41,7 @@ public class Book {
     @JoinTable(name = "book_genre",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
-        )
+    )
     private Set<Genre> genres;
 
     @ManyToOne

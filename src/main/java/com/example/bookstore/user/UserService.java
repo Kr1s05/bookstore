@@ -28,7 +28,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> getAdmins(){
+    public List<User> getAdmins() {
         return userRepository.findAllByRole(Role.ADMIN);
     }
 

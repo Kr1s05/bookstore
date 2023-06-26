@@ -20,7 +20,8 @@ public class Author {
     private String bio;
 
     private byte[] photo;
-    public String getPhotoAsBase64(){
+
+    public String getPhotoAsBase64() {
         return Base64.getEncoder().encodeToString(photo);
     }
 

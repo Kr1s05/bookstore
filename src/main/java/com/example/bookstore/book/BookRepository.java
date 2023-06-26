@@ -32,6 +32,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     double getMinPrice();
 
     Book getBookById(int id);
+
     @Modifying
     @Transactional
     @Query(value = "update Book b set b.quantity = :quantity where b.id = :bookId")

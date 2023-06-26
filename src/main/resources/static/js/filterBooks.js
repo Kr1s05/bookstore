@@ -1,13 +1,13 @@
 $("#applyFilters").click(function () {
     let authors = [];
-    $('[id$="Author"]:checked').each(function() {
+    $('[id$="Author"]:checked').each(function () {
         let author = $(this).val();
         authors.push(author);
     });
 
     // Collect selected genres
     let genres = [];
-    $('[id$="Genre"]:checked').each(function() {
+    $('[id$="Genre"]:checked').each(function () {
         let genre = $(this).val();
         genres.push(genre);
     });
@@ -29,7 +29,7 @@ $("#applyFilters").click(function () {
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
 
-    $(document).ajaxSend(function(e, xhr) {
+    $(document).ajaxSend(function (e, xhr) {
         xhr.setRequestHeader(header, token);
     });
     console.log('sending request...');
@@ -53,12 +53,12 @@ $("#applyFilters").click(function () {
             pageNumber: pageNumber,
             pageSize: 16
         }),
-        success: function(data) {
+        success: function (data) {
             console.log("Request successful");
             $("#contentBox").html(data);
             console.log(data);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log("Request failed: " + error);
         }
     });

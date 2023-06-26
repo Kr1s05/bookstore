@@ -9,7 +9,7 @@ public class PublisherDTO {
     int id;
     String name;
 
-    public static PublisherDTO convert(Publisher publisher){
+    public static PublisherDTO convert(Publisher publisher) {
         return new PublisherDTO(publisher.getId(), publisher.getName());
     }
 }

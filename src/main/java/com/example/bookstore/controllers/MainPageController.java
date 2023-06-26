@@ -24,16 +24,17 @@ public class MainPageController {
     final BookService bookService;
 
     @GetMapping("/store")
-    public String mainPage(Model model, HttpSession session){
+    public String mainPage(Model model, HttpSession session) {
         if (session.getAttribute("cart") == null) session.setAttribute("cart", new Cart(new HashMap<>()));
-        model.addAttribute("Authors",authorService.getAll());
-        model.addAttribute("Genres",genreService.getAll());
-        model.addAttribute("MaxPrice",bookService.maxPrice());
-        model.addAttribute("MinPrice",bookService.minPrice());
+        model.addAttribute("Authors", authorService.getAll());
+        model.addAttribute("Genres", genreService.getAll());
+        model.addAttribute("MaxPrice", bookService.maxPrice());
+        model.addAttribute("MinPrice", bookService.minPrice());
         return "/main";
     }
+
     @PostMapping("/books")
-    public String books(@RequestBody FilterObject filters, Model model){
+    public String books(@RequestBody FilterObject filters, Model model) {
         FilterBookResult result = bookService.getBooksByFilters(filters);
         model.addAttribute("bookList", result.getBooks());
         model.addAttribute("pageNumber", filters.getPageNumber());
@@ -43,7 +44,7 @@ public class MainPageController {
 
     @ResponseBody
     @GetMapping("/cart/add/{bookId}")
-    public Cart buyBook(@PathVariable int bookId, @SessionAttribute Cart cart){
+    public Cart buyBook(@PathVariable int bookId, @SessionAttribute Cart cart) {
         CartItem cartItem = CartItem.BookToCartItem(bookService.getBookById(bookId));
         cart.addToCart(cartItem);
         return cart;
@@ -51,9 +52,24 @@ public class MainPageController {
 
     @ResponseBody
     @GetMapping("/cart/remove/{bookId}")
-    public Cart trashBook(@PathVariable int bookId, @SessionAttribute Cart cart){
+    public Cart trashBook(@PathVariable int bookId, @SessionAttribute Cart cart) {
         CartItem cartItem = CartItem.BookToCartItem(bookService.getBookById(bookId));
         cart.removeFromCart(cartItem);
+        return cart;
+    }
+
+    @ResponseBody
+    @GetMapping("/cart")
+    public Cart getCart(@SessionAttribute Cart cart){
+        CartItem cartItem = CartItem.BookToCartItem(bookService.getBookById(0));
+        CartItem cartItem1 = CartItem.BookToCartItem(bookService.getBookById(1));
+        CartItem cartItem2 = CartItem.BookToCartItem(bookService.getBookById(2));
+        System.out.println(cartItem);
+        System.out.println(cartItem1);
+        System.out.println(cartItem2);
+        cart.addToCart(cartItem);
+        cart.addToCart(cartItem1);
+        cart.addToCart(cartItem2);
         return cart;
     }
 }

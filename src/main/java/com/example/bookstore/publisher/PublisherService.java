@@ -10,10 +10,11 @@ import java.util.List;
 public class PublisherService {
     final PublisherRepository repository;
 
-    public List<Publisher> getAll(){
+    public List<Publisher> getAll() {
         return repository.findAll();
     }
-    public Publisher getById(int id){
+
+    public Publisher getById(int id) {
         return repository.findById(id).orElseThrow();
     }
 

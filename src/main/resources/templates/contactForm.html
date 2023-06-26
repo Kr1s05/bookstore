@@ -1,89 +1,97 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title th:text="#{app.title}"/>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta th:name="_csrf" th:content="${_csrf.token}"/>
-  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="#{app.title}"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-  <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet" />
-  <link th:href="@{/css/app.css}" rel="stylesheet" />
-  <link th:href="@{/css/brand_style.css}" rel="stylesheet" />
-  <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
-  <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
-  <script type="text/javascript" th:src="@{/webjars/jQuery/dist/jquery.js}" defer></script>
-  <script th:src="@{/js/app.js}" defer></script>
+    <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/app.css}" rel="stylesheet"/>
+    <link th:href="@{/css/brand_style.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
+    <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
+    <script type="text/javascript" th:src="@{/webjars/jQuery/dist/jquery.js}" defer></script>
+    <script th:src="@{/js/app.js}" defer></script>
 </head>
 <body class="bg-img-dark h-100">
 <nav class="navbar bg-brand-dark-transp">
-  <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{home/index}"><img th:src="@{/images/logo-white.svg}" alt="" width="50px"></a>
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link color-brand-accent" href="/" >Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link color-brand-accent" href="/contact">Contact us</a>
-      </li>
-    </ul>
-    <ul class="ms-auto"></ul>
-    <div >
-      <button class="btn nav-link color-brand-accent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        Account
-      </button>
-      <div class="collapse position-absolute top-100 end-0" id="navbarNav">
-        <ul class="btn-group-vertical bg-brand-dark-transp nav">
-          <li nav-item><a class="btn nav-link color-brand-accent" href="">Profile</a></li>
-          <li nav-item><a class="btn nav-link color-brand-accent" href="">Cart <i class="fa-light fa-cart-shopping"></i></a></li>
-          <li nav-item><form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
-          </form></li>
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{home/index}"><img th:src="@{/images/logo-white.svg}" alt="" width="50px"></a>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link color-brand-accent" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-brand-accent" href="/contact">Contact us</a>
+            </li>
         </ul>
-      </div>
+        <ul class="ms-auto"></ul>
+        <div>
+            <button class="btn nav-link color-brand-accent" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                Account
+            </button>
+            <div class="collapse position-absolute top-100 end-0" id="navbarNav">
+                <ul class="btn-group-vertical bg-brand-dark-transp nav">
+                    <li nav-item><a class="btn nav-link color-brand-accent" href="">Profile</a></li>
+                    <li nav-item><a class="btn nav-link color-brand-accent" href="">Cart <i
+                            class="fa-light fa-cart-shopping"></i></a></li>
+                    <li nav-item>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 <main class="my-5">
-  <div class="container">
-    <p th:if="${MSG_SUCCESS}" th:text="${MSG_SUCCESS}" class="alert alert-success mb-4" role="alert" />
-    <p th:if="${MSG_INFO}" th:text="${MSG_INFO}" class="alert alert-info mb-4" role="alert" />
-    <p th:if="${MSG_ERROR}" th:text="${MSG_ERROR}" class="alert alert-danger mb-4" role="alert" />
-  </div>
-  <div class="container text-white text-center">
-    <h1 class="my-5">Contact Us</h1>
-    <div class="row justify-content-center">
-      <div class=" col col-md-7 col-xl-5 col-lg-6 col-sm-10">
-        <form class="border rounded-2 p-3" th:action="@{/contact/submit}" method="post" th:object="${Message}">
-          <div class="mb-3">
-            <label for="Fname" class="form-label">First Name</label>
-            <input th:field="*{firstName}" type="text" class="form-control" id="Fname" name="firstName" placeholder="Enter your name" required>
-          </div>
-          <div class="mb-3">
-            <label for="Lname" class="form-label">Email</label>
-            <input th:field="*{lastName}" type="text" class="form-control" id="Lname" name="lastName" placeholder="Enter your email" required>
-          </div>
-          <div class="mb-3">
-            <label for="message" class="form-label">Message</label>
-            <textarea th:field="*{message}" class="form-control" id="message" rows="5" placeholder="Enter your message" name="message" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
+    <div class="container">
+        <p th:if="${MSG_SUCCESS}" th:text="${MSG_SUCCESS}" class="alert alert-success mb-4" role="alert"/>
+        <p th:if="${MSG_INFO}" th:text="${MSG_INFO}" class="alert alert-info mb-4" role="alert"/>
+        <p th:if="${MSG_ERROR}" th:text="${MSG_ERROR}" class="alert alert-danger mb-4" role="alert"/>
     </div>
-  </div>
+    <div class="container text-white text-center">
+        <h1 class="my-5">Contact Us</h1>
+        <div class="row justify-content-center">
+            <div class=" col col-md-7 col-xl-5 col-lg-6 col-sm-10">
+                <form class="border rounded-2 p-3" th:action="@{/contact/submit}" method="post" th:object="${Message}">
+                    <div class="mb-3">
+                        <label for="Fname" class="form-label">First Name</label>
+                        <input th:field="*{firstName}" type="text" class="form-control" id="Fname" name="firstName"
+                               placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Lname" class="form-label">Email</label>
+                        <input th:field="*{lastName}" type="text" class="form-control" id="Lname" name="lastName"
+                               placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea th:field="*{message}" class="form-control" id="message" rows="5"
+                                  placeholder="Enter your message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 <footer class="position-absolute bottom-0 text-white container-fluid">
-  <hr>
-  <div class="mt-5 d-md-flex justify-content-around">
-    <h4 class="me-4">Contact Information:</h4>
-    <p class="mx-md-4">123 Main Street<br>
-      City, State, ZIP<br>
-      Country</p>
-    <p>Phone: (123) 456-7890<br>
-      Email: info@example.com</p>
-  </div>
+    <hr>
+    <div class="mt-5 d-md-flex justify-content-around">
+        <h4 class="me-4">Contact Information:</h4>
+        <p class="mx-md-4">123 Main Street<br>
+            City, State, ZIP<br>
+            Country</p>
+        <p>Phone: (123) 456-7890<br>
+            Email: info@example.com</p>
+    </div>
 </footer>
 </body>
 </html>

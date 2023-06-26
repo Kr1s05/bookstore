@@ -60,20 +60,21 @@ body {
 }
 
 .color-brand-accent:hover,
-.color-brand-accent:active{
+.color-brand-accent:active {
     color: var(--primary-color) !important;
     /* change to white */
 }
 
-.color-brand-accent:focus{
+.color-brand-accent:focus {
     color: var(--accent-color);
 }
 
 .bg-brand-accent:hover,
-.bg-brand-accent:active{
+.bg-brand-accent:active {
     background-color: var(--accent-color);
     color: var(--primary-color) !important;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -85,15 +86,16 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.bg-img-dark{
+.bg-img-dark {
     background-image: url('/images/bg-dark-main.jpg');
     /* backdrop-filter: blur(3px); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-.bg-img-light{
+.bg-img-light {
     background-image: url('/images/bg-light-main.jpg');
     /* backdrop-filter: blur(3px); */
     background-size: cover;
@@ -101,7 +103,7 @@ input[type=number] {
     background-repeat: no-repeat;
 }
 
-.bg-img-login{
+.bg-img-login {
     background-image: url('/images/bg-login-register.jpg');
     /* backdrop-filter: blur(3px); */
     background-size: cover;

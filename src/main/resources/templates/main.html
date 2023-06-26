@@ -35,22 +35,25 @@
         <ul class="ms-auto"></ul>
         <div>
             <button class="btn nav-link color-brand-accent" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    data-bs-target="#navbarNav" aria-expanded="false"
+                    >
                 Account
             </button>
             <div class="collapse position-absolute top-100 end-0" id="navbarNav">
                 <ul class="btn-group-vertical bg-brand-dark-transp nav">
-                    <li nav-item><a class="btn nav-link color-brand-accent">Profile</a></li>
-                    <li nav-item><a class="btn nav-link color-brand-accent">Cart <i
-                            class="fa-light fa-cart-shopping"></i></a></li>
-                    <li nav-item>
+                    <li class="nav-item"><a class="btn nav-link color-brand-accent">Profile</a></li>
+                    <li class="nav-item"><button id="cartButton" class="btn nav-link color-brand-accent"
+                                         data-bs-toggle="collapse" data-bs-target="#cartTableContainer" aria-expanded="false">Cart <i
+                            class="fa-light fa-cart-shopping"></i></button></li>
+                    <li class="nav-item">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
                         </form>
                     </li>
                 </ul>
             </div>
+            <div class="collapse text-white" id="cartTableContainer"> </div>
+            <script th:src="@{/js/cartHandler.js}"></script>
         </div>
     </div>
 </nav>
@@ -122,6 +125,9 @@
     <div class="container" id="contentBox">
 
     </div>
+    <script>
+        $("#applyFilters").click();
+    </script>
 </main>
 </body>
 </html>

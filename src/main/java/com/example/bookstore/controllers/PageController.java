@@ -27,8 +27,9 @@ public class PageController {
         model.addAttribute("user", new User());
         return "login";
     }
+
     @GetMapping("/contact")
-    public String contact(Model model){
+    public String contact(Model model) {
         model.addAttribute("Message", new Message());
         return "contactForm";
     }

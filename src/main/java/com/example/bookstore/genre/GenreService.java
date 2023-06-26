@@ -11,7 +11,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class GenreService {
     final GenreRepository genreRepository;
-    public List<Genre> getAll(){
+
+    public List<Genre> getAll() {
         return genreRepository.findAll();
     }
 

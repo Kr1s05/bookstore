@@ -43,7 +43,7 @@ public class AdminController {
         model.addAttribute("Books", bookService.getAll());
         model.addAttribute("Genres", genreService.getAll());
         model.addAttribute("Admins", userService.getAdmins());
-        return "/admin";
+        return "admin";
     }
 
     @PostMapping("/admin/add-book")

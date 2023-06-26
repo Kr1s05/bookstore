@@ -11,7 +11,7 @@ public class AuthorDTO {
     String wiki_link;
     String bio;
 
-    public static AuthorDTO convert(Author author){
+    public static AuthorDTO convert(Author author) {
         return new AuthorDTO(
                 author.getId(),
                 author.getName(),

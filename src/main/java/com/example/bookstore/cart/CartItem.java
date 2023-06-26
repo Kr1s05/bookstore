@@ -10,7 +10,8 @@ public class CartItem {
     int id;
     String title;
     double price;
-    public static CartItem BookToCartItem(Book book){
+
+    public static CartItem BookToCartItem(Book book) {
         return new CartItem(book.getId(), book.getTitle(), book.getPrice());
     }
 }
