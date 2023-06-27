@@ -11,9 +11,7 @@ import java.util.HashMap;
 public class Cart {
     HashMap<CartItem, Integer> cart;
 
-    public void addToCart(CartItem c) {
-        cart.put(c, cart.getOrDefault(c, 1));
-    }
+    public void addToCart(CartItem c) {cart.put(c, cart.getOrDefault(c, 0)+1);}
 
     public void removeFromCart(CartItem c) {
         cart.put(c, cart.get(c) - 1);

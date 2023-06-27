@@ -1,9 +1,9 @@
 <div class="row">
     <div th:each="bookdto : ${bookList}" class="card p-3 m-3 shadow bg-brand-dark-transp" th:style="'width: 18rem;'">
-        <a th:href="@{'/cart/add/' + ${bookdto.id}}">
+        <button th:id="${bookdto.id}" class="buy-button">
             <img class="card-img-top rounded bg-light" alt="Book Cover"
                  th:src="'data:image/jpeg;base64,' + ${bookdto.cover64}" src="">
-        </a>
+        </button>
         <div class="card-body d-flex">
             <div class="row">
                 <h5 class="card-title text-white" th:text="${bookdto.title}">Book Title</h5>

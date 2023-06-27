@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .permitAll()
                         .loginProcessingUrl("/perform_login")
-                        .failureUrl("/login?error")
+                        .failureUrl("/login?error=true")
                         .defaultSuccessUrl("/", true)
                 )
                 .authenticationProvider(authProvider())

@@ -56,8 +56,11 @@ $("#applyFilters").click(function () {
         success: function (data) {
             console.log("Request successful");
             $("#contentBox").html(data);
-            console.log(data);
-        },
+            $(".buy-button").click(function() {
+                let bookId = $(this).attr('id');
+                updateCart('/cart/add/'+bookId);
+            });
+            },
         error: function (xhr, status, error) {
             console.log("Request failed: " + error);
         }

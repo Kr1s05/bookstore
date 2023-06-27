@@ -61,15 +61,6 @@ public class MainPageController {
     @ResponseBody
     @GetMapping("/cart")
     public Cart getCart(@SessionAttribute Cart cart){
-        CartItem cartItem = CartItem.BookToCartItem(bookService.getBookById(0));
-        CartItem cartItem1 = CartItem.BookToCartItem(bookService.getBookById(1));
-        CartItem cartItem2 = CartItem.BookToCartItem(bookService.getBookById(2));
-        System.out.println(cartItem);
-        System.out.println(cartItem1);
-        System.out.println(cartItem2);
-        cart.addToCart(cartItem);
-        cart.addToCart(cartItem1);
-        cart.addToCart(cartItem2);
         return cart;
     }
 }
