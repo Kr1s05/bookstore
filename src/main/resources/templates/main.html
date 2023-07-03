@@ -11,13 +11,15 @@
     <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/app.css}" rel="stylesheet"/>
     <link th:href="@{/css/brand_style.css}" rel="stylesheet"/>
+    <!--    <link th:href="@{/webjars/fortawesome__fontawesome-free/6.2.1/css/fontawesome.css}" rel="stylesheet"/>-->
+
 
     <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}" defer></script>
     <script th:src="@{/webjars/htmx.org/1.9.0/dist/htmx.min.js}" defer></script>
     <script type="text/javascript" th:src="@{/webjars/jQuery/dist/jquery.min.js}"></script>
 </head>
 <body class="bg-img-dark h-100">
-<nav class="navbar bg-brand-dark-transp sticky-md-top">
+<nav class="navbar bg-brand-dark-transp sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><img th:src="@{/images/logo-white.svg}" alt="" width="50px"></a>
         <ul class="nav justify-content-center">
@@ -37,15 +39,18 @@
         <div>
             <button class="btn nav-link color-brand-accent" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNav" aria-expanded="false"
-                    >
+            >
                 Account
             </button>
             <div class="collapse position-absolute top-100 end-0" id="navbarNav">
                 <ul class="btn-group-vertical bg-brand-dark-transp nav">
                     <li class="nav-item"><a class="btn nav-link color-brand-accent">Profile</a></li>
-                    <li class="nav-item"><button id="cartButton" class="btn nav-link color-brand-accent"
-                                         data-bs-toggle="collapse" data-bs-target="#cartTableContainer" aria-expanded="false">Cart <i
-                            class="fa-light fa-cart-shopping"></i></button></li>
+                    <li class="nav-item">
+                        <button id="cartButton" class="btn nav-link color-brand-accent"
+                                data-bs-toggle="collapse" data-bs-target="#cartCollapse" aria-expanded="false">
+                            Cart
+                        </button>
+                    </li>
                     <li class="nav-item">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn nav-link color-brand-accent">Logout</button>
@@ -56,7 +61,12 @@
         </div>
     </div>
 </nav>
-<div class="collapse text-white position-fixed top-50 start-50 translate-middle bg-brand-dark rounded-4 border border-white p-3" id="cartTableContainer" style="z-index: 99 !important;"> </div>
+
+<div class="collapse position-fixed top-0 start-0 blur w-100 h-100" id="cartCollapse" style="z-index: 99 !important;">
+    <div class="text-white position-fixed top-50 start-50 translate-middle bg-brand-dark rounded-4 border border-white p-3"
+         id="cartTableContainer" style="z-index: 100 !important;"></div>
+</div>
+
 <div class="collapse bg-brand-dark-transp container-fluid" id="Filters">
     <div class="d-flex row px-5 py-3 justify-content-between">
         <div class="accordion col-md-4 col-xl-3 mb-3" id="filterAccordion">
@@ -75,7 +85,8 @@
                         <div class="form-check" th:each="author : ${Authors}">
                             <input class="form-check-input" type="checkbox" th:value="${author.name}"
                                    th:id="${author.name}+'Author'">
-                            <label class="form-check-label" th:for="${author.name}+'Author'" th:text="${author.name}"></label>
+                            <label class="form-check-label" th:for="${author.name}+'Author'"
+                                   th:text="${author.name}"></label>
                         </div>
                     </div>
                 </div>
@@ -117,16 +128,18 @@
 <script th:src="@{/js/filterBooks.js}"></script>
 <script th:src="@{/js/cartHandler.js}"></script>
 
-<main class="my-5">
+<main class="">
     <div class="container">
         <p th:if="${MSG_SUCCESS}" th:text="${MSG_SUCCESS}" class="alert alert-success mb-4" role="alert"/>
         <p th:if="${MSG_INFO}" th:text="${MSG_INFO}" class="alert alert-info mb-4" role="alert"/>
         <p th:if="${MSG_ERROR}" th:text="${MSG_ERROR}" class="alert alert-danger mb-4" role="alert"/>
     </div>
-    <div class="container " id="contentBox">
+
+    <div class="container-fluid justify-content-evenly" id="contentBox">
 
     </div>
     <script>
+        // document.firstLoad = true;
         $("#applyFilters").click();
         updateCart("/cart");
     </script>

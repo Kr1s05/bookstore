@@ -31,8 +31,8 @@ public class BookDTO {
     public static BookDTO convert(Book book) {
         Set<GenreDTO> genreDTOS = new HashSet<>();
         book.getGenres().forEach(x -> genreDTOS.add(GenreDTO.convert(x)));
-        Set<AuthorDTO> authorDTOS = new HashSet<>();
-        book.getAuthors().forEach(x -> authorDTOS.add(AuthorDTO.convert(x)));
+        Set<AuthorDTO> AuthorDTOS = new HashSet<>();
+        book.getAuthors().forEach(x -> AuthorDTOS.add(AuthorDTO.convert(x)));
 
         return new BookDTO(
                 book.getId(),
@@ -45,7 +45,7 @@ public class BookDTO {
                 book.getQuantity(),
                 genreDTOS,
                 PublisherDTO.convert(book.getPublisher()),
-                authorDTOS
+                AuthorDTOS
         );
     }
 

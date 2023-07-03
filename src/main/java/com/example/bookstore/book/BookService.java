@@ -39,7 +39,7 @@ public class BookService {
             genreString = genreStringBuilder.toString();
         }
 
-        Integer totalCount = 10;
+        Integer totalCount = 3;
         List<Book> books = bookRepository.filter_books(
                 authorString,
                 genreString,
@@ -54,6 +54,10 @@ public class BookService {
 
     public Book getBookById(int id) {
         return bookRepository.getBookById(id);
+    }
+    @Transactional
+    public BookDTO getBookDTOById(int id){
+        return BookDTO.convert(bookRepository.getBookById(id));
     }
 
     public double maxPrice() {

@@ -1,10 +1,7 @@
 package com.example.bookstore.controllers;
 
 import com.example.bookstore.author.AuthorService;
-import com.example.bookstore.book.BookDTO;
-import com.example.bookstore.book.BookService;
-import com.example.bookstore.book.FilterBookResult;
-import com.example.bookstore.book.FilterObject;
+import com.example.bookstore.book.*;
 import com.example.bookstore.cart.Cart;
 import com.example.bookstore.cart.CartItem;
 import com.example.bookstore.genre.GenreService;
@@ -62,5 +59,12 @@ public class MainPageController {
     @GetMapping("/cart")
     public Cart getCart(@SessionAttribute Cart cart){
         return cart;
+    }
+
+    @GetMapping("/book/{id}")
+    public String getBookPage(@PathVariable int id, Model model){
+        BookDTO bookDTO = bookService.getBookDTOById(id);
+        model.addAttribute("Book", bookDTO);
+        return "/book";
     }
 }

@@ -87,3 +87,4 @@ function updateCart(url) {
         }
     });
 }
+
